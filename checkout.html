@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Chérie & Fleurs</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo"> 
+                <img src="images/logo.png" alt="Mon Chérie & Fleurs Logo">
+                <span> Mon Chérie & Fleurs</span>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="flowers.html">Flowers</a></li>
+                    <li><a href="arrangements.html">Arrangements</a></li>
+                    <li><a href="collection.html">Preserved Collection</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                </ul>
+            </nav>
+
+            <div class="icons">
+                <a href="likes.html"><i class="fas fa-heart"></i></a> <!-- Heart Icon -->
+                <a href="cart.html"><i class="fas fa-shopping-bag"></i></a> <!-- Shopping Bag Icon -->
+            </div>
+        </div>
+    </header>
+
+    <section class="checkout-form">
+        <h2>Checkout</h2>
+        <form id="order-form">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="contact">Contact Number:</label>
+            <input type="tel" id="contact" name="contact" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="pickup-date">Pick-Up Date:</label>
+            <input type="date" id="pickup-date" name="pickup-date" required>
+
+            <h3>Your Ordered Flowers:</h3>
+            <ul id="cart-items-list"></ul>
+
+            
+            <button type="submit" class="submit-btn">Reserve</button>
+        </form>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    let cartList = document.getElementById("cart-items-list");
+    let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+        cartList.innerHTML = "<li>No flowers ordered.</li>";
+    } else {
+        cart.forEach(item => {
+            let li = document.createElement("li");
+            li.textContent = `${item.quantity}x ${item.name} - ₱${(item.price * item.quantity).toFixed(2)}`;
+            cartList.appendChild(li);
+        });
+    }
+});
+
+// Initialize EmailJS
+(function(){
+    emailjs.init("3jHkrKtJMltWnTgL0"); // Replace with your actual EmailJS Public Key
+})();
+
+document.getElementById("order-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    let name = document.getElementById("name").value;
+    let contact = document.getElementById("contact").value;
+    let email = document.getElementById("email").value;
+    let pickupDate = document.getElementById("pickup-date").value;
+    let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
+    let orderDetails = cart.map(item => `${item.quantity}x ${item.name} - ₱${(item.price * item.quantity).toFixed(2)}`).join("\n");
+
+    // Send Email
+    sendEmail(name, email, contact, pickupDate, orderDetails);
+
+    alert("Reservation successful! A confirmation email has been sent.");
+    
+    // Redirect to Home Page
+    window.location.href = "index.html";
+});
+
+// Function to send email using EmailJS
+function sendEmail(name, email, contact, pickupDate, orderDetails) {
+    emailjs.send("service_nxcnb7i", "template_hjs13xy", {
+        name: name,
+        email: email,
+        contact: contact,
+        pickup_date: pickupDate,
+        order_details: orderDetails
+    }).then(response => {
+        console.log("Email sent successfully!", response);
+    }).catch(error => console.error("Email error:", error));
+}
+
+    </script>
+
+</body>
+</html>

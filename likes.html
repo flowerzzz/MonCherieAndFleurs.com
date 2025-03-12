@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liked Products - Mon Chérie & Fleurs</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo"> 
+                <img src="images/logo.png" alt="Mon Chérie & Fleurs Logo">
+                <span> Mon Chérie & Fleurs</span>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="flowers.html">Flowers</a></li>
+                    <li><a href="arrangements.html">Arrangements</a></li>
+                    <li><a href="collection.html">Preserved Collection</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                </ul>
+            </nav>
+
+            <div class="icons">
+                <a href="likes.html"><i class="fas fa-heart"></i></a>
+                <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <section class="liked-products">
+        <h2>Liked Products</h2>
+        <div class="product-grid" id="liked-items">
+            <!-- product list auto generate -->
+        </div>
+    </section>
+
+    <script src="likes.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            loadLikedProducts();
+        });
+
+        function loadLikedProducts() {
+            let likedProducts = JSON.parse(localStorage.getItem("likedProducts")) || [];
+            let likedContainer = document.getElementById("liked-items");
+
+            likedContainer.innerHTML = "";
+
+            if (likedProducts.length === 0) {
+                likedContainer.innerHTML = "<p class='empty-message'>No liked products yet.</p>";
+                return;
+            }
+
+            likedProducts.forEach(product => {
+                let productCard = document.createElement("div");
+                productCard.classList.add("product");
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>₱${parseFloat(product.price).toLocaleString()}</p>
+                    <div class="product-icons">
+                        <a href="#" class="remove-like" data-id="${product.id}"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                `;
+
+                likedContainer.appendChild(productCard);
+            });
+
+            attachRemoveLikeListeners();
+        }
+
+        function attachRemoveLikeListeners() {
+            document.querySelectorAll(".remove-like").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    let productId = this.getAttribute("data-id");
+                    removeLikedProduct(productId);
+                });
+            });
+        }
+
+        function removeLikedProduct(id) {
+            let likedProducts = JSON.parse(localStorage.getItem("likedProducts")) || [];
+            likedProducts = likedProducts.filter(product => product.id !== id);
+            localStorage.setItem("likedProducts", JSON.stringify(likedProducts));
+            loadLikedProducts();
+        }
+    </script>
+
+</body>
+</html>

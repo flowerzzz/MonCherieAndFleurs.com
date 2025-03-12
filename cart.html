@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Chérie & Fleurs</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo"> 
+                <img src="images/logo.png" alt="Mon Chérie & Fleurs Logo">
+                <span> Mon Chérie & Fleurs</span>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="flowers.html">Flowers</a></li>
+                    <li><a href="arrangements.html">Arrangements</a></li>
+                    <li><a href="collection.html">Preserved Collection</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                </ul>
+            </nav>
+
+            <div class="icons">
+                <a href="likes.html"><i class="fas fa-heart"></i></a> <!-- Heart Icon -->
+                <a href="cart.html"><i class="fas fa-shopping-bag"></i></a> <!-- Shopping Bag Icon -->
+            </div>
+        </div>
+    </header>
+
+    <section class="cart">
+        <h2>Your Shopping Cart</h2>
+        <div class="cart-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    <!-- cart auto degenerate -->
+                </tbody>
+            </table>
+        </div>
+        <div class="cart-footer">
+            <p><strong>Grand Total:</strong> ₱<span id="grand-total">0.00</span></p>
+           <button id="checkout-btn" class="checkout-button">Reserve</button>
+        </div>
+    </section>
+
+    <script src="cart.js"></script>
+
+</body>
+</html>
