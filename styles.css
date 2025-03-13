@@ -154,7 +154,7 @@ nav ul li a.active {
     font-weight:200;
     margin: 10px 0;
     font-family: Constantia;
-    color: #786F80;
+    color: #403f3c;
     text-align: justify;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
@@ -644,14 +644,14 @@ th {
     font-size: 20px;
     font-weight: bold;
     font-family: 'Times New Roman';
-    color: #fedbe2;
+    color: #786F80;
     margin-top: 10px;
 }
 
 /* Product Price */
 .liked-products .product p {
     font-size: 16px;
-    color: #fedbe2;
+    color: #333;
     font-weight: bold;
     margin: 5px 0;
 }
@@ -704,10 +704,12 @@ th {
 }
 /*form checkout*/
 .checkout-form {
-    width: 50%;
+    width: 35%;
     margin: 40px auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
     background: url('images/bg9.jpg') no-repeat center center/cover;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -763,4 +765,8 @@ input {
 
 .submit-btn:hover {
     background: #900D09;
+}
+
+.checkout-bg {
+    background-color: #fedbe2;
 }
